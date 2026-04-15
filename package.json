@@ -1,0 +1,7 @@
+{
+  "name": "mioku-60s-service",
+  "version": "1.0.0",
+  "description": "60s API 服务",
+  "main": "index.ts",
+  "dependencies": {}
+}
