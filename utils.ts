@@ -4,6 +4,14 @@ import type {
   SixtySecondsQueryValue,
 } from "./types";
 
+type RequestBodyValue =
+  | string
+  | URLSearchParams
+  | FormData
+  | Blob
+  | ArrayBuffer
+  | undefined;
+
 function appendQueryValue(
   target: URLSearchParams,
   key: string,
@@ -84,7 +92,7 @@ export function buildRequestHeaders(
   };
 }
 
-export function buildRequestBody(body: unknown): BodyInit | undefined {
+export function buildRequestBody(body: unknown): RequestBodyValue {
   if (body === undefined) {
     return undefined;
   }
@@ -96,7 +104,7 @@ export function buildRequestBody(body: unknown): BodyInit | undefined {
     body instanceof Blob ||
     body instanceof ArrayBuffer
   ) {
-    return body as BodyInit;
+    return body as RequestBodyValue;
   }
 
   return JSON.stringify(body);
