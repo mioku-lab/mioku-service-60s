@@ -1,8 +1,9 @@
 {
   "name": "mioku-service-60s",
-  "version": "1.0.0",
+  "version": "0.8.0",
   "description": "60s API 服务",
   "main": "index.ts",
+  "type": "module",
   "keywords": [
     "mioku"
   ],
@@ -10,5 +11,12 @@
     "type": "git",
     "url": "https://github.com/mioku-lab/mioku-service-60s.git"
   },
-  "dependencies": {}
+  "peerDependencies": {
+    "mioku": "^0.8.0",
+    "mioki": "^0.16.0"
+  },
+  "devDependencies": {
+    "mioku": "workspace:*",
+    "mioki": "^0.16.0"
+  }
 }

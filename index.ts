@@ -1,5 +1,5 @@
 import { logger } from "mioki";
-import type { MiokuService } from "../../core/types";
+import type { MiokuService } from "mioku";
 import { createSixtySecondsClient } from "./client";
 import type {
   SixtySecondsClient,
