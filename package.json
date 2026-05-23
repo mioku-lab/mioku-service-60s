@@ -1,6 +1,6 @@
 {
   "name": "mioku-service-60s",
-  "version": "0.8.0",
+  "version": "2.0.0",
   "description": "60s API 服务",
   "main": "index.ts",
   "type": "module",
