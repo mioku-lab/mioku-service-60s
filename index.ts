@@ -1,5 +1,9 @@
 import { logger } from "mioki";
 import type { MiokuService } from "mioku";
+import {
+  registerServiceConfig,
+  getServiceConfig,
+} from "mioku";
 import { createSixtySecondsClient } from "./client";
 import type {
   SixtySecondsClient,
@@ -15,9 +19,16 @@ class SixtySecondsServiceImpl implements SixtySecondsService {
   private defaultClientName = DEFAULT_CLIENT_NAME;
 
   constructor() {
+    const config = getServiceConfig("60s", "base");
+    const baseUrl = String(config.baseUrl || "").trim() || DEFAULT_BASE_URL;
+    const timeoutMs =
+      typeof config.timeoutMs === "number" && config.timeoutMs > 0
+        ? config.timeoutMs
+        : 15000;
     this.create({
       name: DEFAULT_CLIENT_NAME,
-      baseUrl: DEFAULT_BASE_URL,
+      baseUrl,
+      timeoutMs,
     });
   }
 
@@ -74,6 +85,18 @@ class SixtySecondsServiceImpl implements SixtySecondsService {
     return client;
   }
 
+  getDefaultOptions(): SixtySecondsClientOptions {
+    const config = getServiceConfig("60s", "base");
+    return {
+      baseUrl:
+        String(config.baseUrl || "").trim() || DEFAULT_BASE_URL,
+      timeoutMs:
+        typeof config.timeoutMs === "number" && config.timeoutMs > 0
+          ? config.timeoutMs
+          : 15000,
+    };
+  }
+
   dispose(): void {
     this.clients.clear();
   }
@@ -86,6 +109,10 @@ const sixtySecondsService: MiokuService = {
   api: {} as SixtySecondsService,
 
   async init() {
+    registerServiceConfig("60s", "base", {
+      baseUrl: DEFAULT_BASE_URL,
+      timeoutMs: 15000,
+    });
     this.api = new SixtySecondsServiceImpl();
     logger.info("60s-service 已就绪");
   },
