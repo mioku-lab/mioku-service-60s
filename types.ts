@@ -293,5 +293,5 @@ export interface SixtySecondsService {
   remove(name: string): boolean;
   setDefault(name: string): boolean;
   getDefault(): SixtySecondsClient;
-  getDefaultOptions(): SixtySecondsClientOptions;
+  getDefaultOptions(): Promise<SixtySecondsClientOptions>;
 }
