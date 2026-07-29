@@ -1,17 +1,19 @@
 import { logger } from "mioki";
 import type { MiokuService } from "mioku";
-import { registerServiceConfig, getServiceConfig } from "mioku";
+import { defineService, registerServiceConfig, getServiceConfig } from "mioku";
 import { createSixtySecondsClient } from "./client";
 import type {
   SixtySecondsClient,
   SixtySecondsClientOptions,
-  SixtySecondsService,
+  SixtySecondsServiceApi,
 } from "./types";
+
+export const SixtySecondsService = defineService<SixtySecondsServiceApi>("60s");
 
 const DEFAULT_CLIENT_NAME = "default";
 const DEFAULT_BASE_URL = "https://60s.viki.moe";
 
-class SixtySecondsServiceImpl implements SixtySecondsService {
+class SixtySecondsServiceImpl implements SixtySecondsServiceApi {
   private readonly clients = new Map<string, SixtySecondsClient>();
   private defaultClientName = DEFAULT_CLIENT_NAME;
 
@@ -97,7 +99,7 @@ const sixtySecondsService: MiokuService = {
   name: "60s",
   version: "1.0.0",
   description: "60s API 客户端服务，支持多实例和大部分官方端点",
-  api: {} as SixtySecondsService,
+  api: {} as SixtySecondsServiceApi,
 
   async init() {
     await registerServiceConfig("60s", "base", {
@@ -131,6 +133,6 @@ export type {
   SixtySecondsPeriodicApi,
   SixtySecondsRequestOptions,
   SixtySecondsResponse,
-  SixtySecondsService,
+  SixtySecondsServiceApi,
   SixtySecondsUtilityApi,
 } from "./types";

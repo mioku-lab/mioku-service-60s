@@ -283,7 +283,7 @@ export interface SixtySecondsClient {
   beta: SixtySecondsBetaApi;
 }
 
-export interface SixtySecondsService {
+export interface SixtySecondsServiceApi {
   create(options: SixtySecondsClientOptions): SixtySecondsClient;
   createClient(
     options: string | SixtySecondsClientOptions,

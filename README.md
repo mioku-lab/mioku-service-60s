@@ -22,23 +22,22 @@
 }
 ```
 
-服务名是 `60s`，插件里需要用中括号读取：
+服务名是 `60s`，插件里用 service 包导出的 `SixtySecondsService` 引用：
 
 ```ts
-import type { SixtySecondsService } from "../../src/services/60s";
+import { SixtySecondsService } from "mioku-service-60s";
+import { getService } from "mioku";
 
-const sixtySecondsService = ctx.services?.["60s"] as
-  | SixtySecondsService
-  | undefined;
+const sixtySecondsService = getService(ctx, SixtySecondsService);
 ```
 
 ## 快速示例
 
 ```ts
-const sixtySecondsService = ctx.services?.["60s"] as
-  | SixtySecondsService
-  | undefined;
+import { SixtySecondsService } from "mioku-service-60s";
+import { getService } from "mioku";
 
+const sixtySecondsService = getService(ctx, SixtySecondsService);
 const client = sixtySecondsService?.getDefault();
 const worldNews = await client?.periodic.daily60s();
 const weather = await client?.utility.weatherRealtime({
